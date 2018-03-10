@@ -1,137 +1,95 @@
 // hard-coded topics
 var topics = [
     {
-        name: "PD",
-        re: /\b(PD)\b/gi,
+        name: "Innovative",
+        re: /\b(Innovative)\b/gi,
         x: 558,
         y: 181
     },
     {
-        name: "Greg",
-        re: /\b(Greg)\b/gi,
+        name: "Creative",
+        re: /\b(Creative)\b/gi,
         x: 123,
         y: 181
     },
     {
-        name: "Education",
-        re: /\b(Education)\b/gi,
+        name: "Problem Solvers",
+        re: /\b(Problem Solvers)\b/gi,
         x: 43,
         y: 203
     },
     {
-        name: "Math",
-        re: /\bMath\b/gi,
+        name: "Real World",
+        re: /\b(Real World)\b/gi,
         x: 58,
         y: 265,
-        arrow: "Math"
+        arrow: "Real World"
     },
     {
-        name: "Helpful",
-        re: /\b(Helpful)\b/gi,
+        name: "Collaboration",
+        re: /\b(Collaboration)\b/gi,
         x: 618,
         y: 201
     },
     {
-        name: "Help",
-        re: /\b(Help)\b/gi,
+        name: "Personalize",
+        re: /\b(Personalize)\b/gi,
         x: 361,
         y: 256
     },
     {
-        name: "Rockhurst",
-        re: /\bRockhurst\b/gi,
+        name: "Inquiry",
+        re: /\b(Inquiry)\b/gi,
         x: 81,
         y: 235
     },
     {
-        name: "SPED",
-        re: /\bSPED\b/gi,
+        name: "Authentic",
+        re: /\b(Authentic)\b/gi,
         x: 692,
         y: 319,
         arrow: "SPED"
     },
     {
-        name: "teacher",
-        re: /\b(teacher)\b/gi,
+        name: "Learning",
+        re: /\b(Learning)\b/gi,
         x: 364,
         y: 179
     },
     {
-        name: "Church",
-        re: /\b(church)\b/gi,
+        name: "Students",
+        re: /\b(Students)\b/gi,
         x: 862,
         y: 217
     },
     {
-        name: "instructors",
-        re: /\b(instructors)\b/gi,
+        name: "Research",
+        re: /\b(Research)\b/gi,
         x: 620,
         y: 339
     },
     {
-        name: "Fellow",
-        re: /\b(Fellow)\b/gi,
+        name: "Critical Thinking",
+        re: /\b(Critical Thinking)\b/gi,
         x: 410,
         y: 340
     },
     {
-        name: "Education",
-        re: /\b(Education)\b/gi,
+        name: "Interdisciplinary",
+        re: /\b(Interdisciplinary)\b/gi,
         x: 267,
         y: 218
     },
     {
-        name: "Meet",
-        re: /\b(Meet)\b/gi,
+        name: "Industry Partners",
+        re: /\b(Industry Partners)\b/gi,
         x: 393,
         y: 224
     },
     {
-        name: "engage",
-        re: /\bengage\b/gi,
+        name: "Mentors",
+        re: /\b(Mentors)\b/gi,
         x: 73,
         y: 206
     },
-    {
-        name: "Witness",
-        re: /\bwitness\b/gi,
-        x: 721,
-        y: 230
-    },
-    {
-        name: "perspectives",
-        re: /\b(perspectives)\b/gi,
-        x: 109,
-        y: 212
-    },
-    {
-        name: "Faith",
-        re: /\b(faith)\b/gi,
-        x: 650,
-        y: 246
-    },
-    {
-        name: "activities",
-        re: /\b(famil[a-z]+)\b/gi,
-        x: 401,
-        y: 113
-    },
-    {
-        name: "Great",
-        re: /\b(Great)\b/gi,
-        x: 214,
-        y: 248
-    },
-    {
-        name: "hometown",
-        re: /\b(hometown)\b/gi,
-        x: 829,
-        y: 215
-    },
-    {
-        name: "recommend",
-        re: /\b(recommend)\b/gi,
-        x: 139,
-        y: 177
-    }
 ];
