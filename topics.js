@@ -6,7 +6,6 @@ var topics = [
         x: 558,
         y: 181
     },
-
     {
         name: "Greg",
         re: /\b(Greg)\b/gi,

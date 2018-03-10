@@ -1,65 +1,5 @@
-/**
- * sample data sheet:
- * https://docs.google.com/spreadsheets/d/1aJ0E-qBDO3BABiQlqh4vXSIrqjHKCWEQ2egmsHzOsDM/edit?ts=5aa2d510#gid=1217055117
- *
- * 
- *
- 
- var speakers = {
-        "AL GREEN": {
-            name: "Al Green",
-            title: "U.S. representative, Texas"
-        },
-        "ALEX SCHRIVER": {
-            name: "Alex Schriver",
-            title: "College Republican National Committee chairman"
-        },
-        "ALLYSON SCHWARTZ": {
-            name: "Allyson Y. Schwartz",
-            title: "U.S. representative, Pennsylvania"
-        }
-    };
-    
-    var parties = [
-        {
-            name: "before",
-            speeches: [
-                "CLAUDIA_PERRY ISDSCHOOLS: It was great to participate with other teachers in different places. It was intense and enlightening for working together as students would. How to share ideas that are not always easy to do. It made me stop and think how my students might feel if they don't understand a topic. Vary the lunch...same thing every day gets old. ",
-                "MMCCONNELL HORIZON-ACADEMY:  I just don't anticipate that I'll be attending it twice.I showed me a way to teach algebra inductively.",
-                "IHORR SMSD:  This was the most relevant PD I have ever attendedI now have lots of resources to use for solving real world problems. Different lunches  the same thing every day got really old. "
-            ]
-        },
-        {
-            name: "after",
-            speeches: [
-                "NOFOSTER SMSD: Fun being a math student  but not enough time preparing to be a teacher.Instead of two sessions  maybe have three or four. ",
-                "CMPOTTER BLUEVALLEYK12: Useful resources and an interactive week of working through the resources same as above reason Many different approaches to problems I've been doing differently Great reminder of how to be a student Great snacks  great size of workshops  maybe make the workshops shorter and allow us to choose more of them? ",
-                "SARADZIADOSZ SMSD: Gives some excellent ideas that can be adapted if needed for SPED. It's not really designed to meet the needs of SPED student scaffolding. Resources like desmos.com  various hands-on tools I hadn't seen before. Got my brain thinking about how to take the activities and make them accessible to kids with learning disabilities. Be clear that is is NOT for people who do not teach math. I blogged about the experience from a SPED teacher's perspective. Here's what I was able to think about/get from the experience: http://enraged2engaged.com/wp/",
-            ]
-        }
-    ];
-
-    var topics = [
-        {
-            name: "for",
-            re: /\b(for)\b/gi,
-            x: 558,
-            y: 181
-        },
-        {
-            name: "the",
-            re: /\b(the)\b/gi,
-            x: 123,
-            y: 181
-        },
-        {
-            name: "not",
-            re: /\b(not)\b/gi,
-            x: 43,
-            y: 203
-        }
-    ];
- */
+var source1 = 'https://docs.google.com/spreadsheets/d/1Ur0IGvFhrhPOIUPJx0LpauCSdEkJeMkVvIB4gj_Bx2I/edit#gid=945409335';
+var source2 = 'https://docs.google.com/spreadsheets/d/1aJ0E-qBDO3BABiQlqh4vXSIrqjHKCWEQ2egmsHzOsDM/edit#gid=1217055117';
 
 var data = {};
 
@@ -770,51 +710,70 @@ var visualize = function() {
 
 // get data from google sheet by tab index 
 // calls clobber and visualize
-var loadJSON = function(tab) {
+var loadJSON = function() {
     
-    var url = 'https://spreadsheets.google.com/feeds/list/1aJ0E-qBDO3BABiQlqh4vXSIrqjHKCWEQ2egmsHzOsDM/' + tab + '/public/values?alt=json'
-    
-    d3.json(url, function (json) {
+    // an array of party objects. inside, each party will have an array of speeches
+    var parties = [];
 
-        // an array of party objects. inside, each party will have an array of speeches
-        var parties = [];
-        
-        var googleSheet = json.feed.entry;
+    
+    var url1 = getSheetJsonUrl(source1); // sheet 1
+    var url2 = getSheetJsonUrl(source2); // sheet 2
+    
+    console.log(url1);
+    console.log(url2);
+    
+    // count how many sheets finish processing, must equal 2 before visualize gets called
+    var finished = 0;
+    
+    // convert doc url to json api url
+    function getSheetJsonUrl(docUrl) {
+        var key = docUrl.split('/d/')[1].split('/')[0];
+        return 'https://spreadsheets.google.com/feeds/list/' + key + '/1/public/values?alt=json'
+    
+    }
+    
+    // get speeches from one sheet
+    function getParty(json) {
+        var sheetId     = json.feed.id.$t;
+        var sheetData   = json.feed.entry;
 
         // the speeches dictionary
         // store the speeches here before populating the parties array
         var speeches = {};
 
         // for every row in the spreadsheet
-        for(var i = 0; i < googleSheet.length; i++) {
-            var name    = googleSheet[i].gsx$name.$t;
-            var email   = googleSheet[i].gsx$email.$t;
-            var slide1  = googleSheet[i].gsx$slide1.$t;
-            var slide2  = googleSheet[i].gsx$slide2.$t;
-            var slide3  = googleSheet[i].gsx$slide3.$t;
-            var time    = googleSheet[i].gsx$peardeck.$t;
+        for(var i = 0; i < sheetData.length; i++) {
+            var name    = sheetData[i].gsx$name.$t;
+            var email   = sheetData[i].gsx$email.$t;
+            var slide1  = sheetData[i].gsx$slide1.$t;
+            var slide2  = sheetData[i].gsx$slide2.$t;
+            var slide3  = sheetData[i].gsx$slide3.$t;
+            var time    = sheetData[i].gsx$peardeck.$t;
             var speech  = name.toUpperCase() + ': ' + slide3;
 
             // add the party to the speeches dictionary, create its array
-            if(!speeches.hasOwnProperty(slide1)) {
-                speeches[slide1] = {}
-                speeches[slide1].speeches = [];
+            if(!speeches.hasOwnProperty(sheetId)) {
+                speeches[sheetId] = {}
+                speeches[sheetId].speeches = [];
             }
 
             // record the speech!
-            speeches[slide1].speeches.push(speech);
+            speeches[sheetId].speeches.push(speech);
         }
 
-        // get the speeches previously organized by party and store in the parties array
-        for(var party in speeches) {
-            parties.push({
-                name : party,
-                speeches : speeches[party].speeches
-            });
-        }
+        parties.push({
+            name : sheetId,
+            speeches : speeches[sheetId].speeches
+        });
 
-        clobber(parties, speakers, topics);
-        visualize();
-    });
+        finished++;
+        if(finished === 2) {
+            clobber(parties, speakers, topics);
+            visualize();
+        }
+    }
+    
+    d3.json(url1, getParty);
+    d3.json(url2, getParty);
 };
 
