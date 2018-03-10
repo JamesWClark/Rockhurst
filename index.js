@@ -63,19 +63,8 @@
 
 var data = {};
 
-// what does this do?
+// map and filter the data
 var clobber = function(parties, speakers, topics) {
-    
-//    console.log('in clobber');
-//    console.log('parties');
-//    console.log(JSON.parse(JSON.stringify(parties)));
-//    
-//    console.log('parties');
-//    console.log(parties);
-//    console.log('speakers');
-//    console.log(speakers);
-//    console.log('topics');
-//    console.log(topics);
 
     data.parties = parties.map(party);
     data.speakers = speakers;
@@ -90,16 +79,6 @@ var clobber = function(parties, speakers, topics) {
         return t;
     };
     
-//    console.log('data.parties');
-//    console.log(JSON.parse(JSON.stringify(data.parties)));
-//    
-//    console.log('data.parties');
-//    console.log(data.parties);
-//    console.log('data.speakers');
-//    console.log(data.speakers);
-//    console.log('data.topics');
-//    console.log(data.topics);
-
     function party(party) {
         party.speeches = party.speeches.map(speech);
         party.sections = sections(party.speeches);
@@ -193,7 +172,7 @@ var clobber = function(parties, speakers, topics) {
 
 };
 
-// what does this do?
+// display the graph
 var visualize = function() {
 
     var width = 970,
@@ -789,308 +768,216 @@ var visualize = function() {
 
 };
 
-var url = "https://spreadsheets.google.com/feeds/list/1aJ0E-qBDO3BABiQlqh4vXSIrqjHKCWEQ2egmsHzOsDM/3/public/values?alt=json";
+// get data from google sheet by tab index 
+var loadJSON = function(tab) {
+    
+    var url = 'https://spreadsheets.google.com/feeds/list/1aJ0E-qBDO3BABiQlqh4vXSIrqjHKCWEQ2egmsHzOsDM/' + tab + '/public/values?alt=json'
+    
+    d3.json(url, function (json) {
 
-d3.json(url, function (json) {
-    
-    
-    //var speakers = {};  // dictionary    
-    
-    //var speeches = {};  // dictionary
-    //var parties = [];   // array
+        // pointless?
+        var speakers = {
+            "AL GREEN": {
+                name: "Al Green",
+                title: "U.S. representative, Texas"
+            },
+            "ALEX SCHRIVER": {
+                name: "Alex Schriver",
+                title: "College Republican National Committee chairman"
+            }
+        };
 
-    
-    
+        // an array of party objects. inside, each party will have an array of speeches
+        var parties = [];
 
-    /*    
-    
-    topics = [
+        // hard-coded topics
+        var topics = [
         {
-            name: "for",
-            re: /\b(for)\b/gi,
+            name: "PD",
+            re: /\b(PD)\b/gi,
             x: 558,
             y: 181
         },
+
         {
-            name: "the",
-            re: /\b(the)\b/gi,
+            name: "Greg",
+            re: /\b(Greg)\b/gi,
             x: 123,
             y: 181
         },
         {
-            name: "not",
-            re: /\b(not)\b/gi,
-            x: 43,
-            y: 203
-        }
-    ];
-    */
-    
-    var speakers = {
-        "AL GREEN": {
-            name: "Al Green",
-            title: "U.S. representative, Texas"
-        },
-        "ALEX SCHRIVER": {
-            name: "Alex Schriver",
-            title: "College Republican National Committee chairman"
-        },
-        "ALLYSON SCHWARTZ": {
-            name: "Allyson Y. Schwartz",
-            title: "U.S. representative, Pennsylvania"
-        }
-    };
-    
-    var parties = [];
-
-    /*
-    var topics = [
-        {
-            name: "cat",
-            re: /\b(cat)\b/gi,
-            x: 558,
-            y: 181
-        },
-        {
-            name: "mouse",
-            re: /\b(mouse)\b/gi,
-            x: 123,
-            y: 181
-        },
-        {
-            name: "dog",
-            re: /\b(dog)\b/gi,
+            name: "Education",
+            re: /\b(Education)\b/gi,
             x: 43,
             y: 203
         },
         {
-            name: "bear",
-            re: /\b(bear)\b/gi,
-            x: 400,
-            y: 203
+            name: "Math",
+            re: /\bMath\b/gi,
+            x: 58,
+            y: 265,
+            arrow: "Math"
+        },
+        {
+            name: "Helpful",
+            re: /\b(Helpful)\b/gi,
+            x: 618,
+            y: 201
+        },
+        {
+            name: "Help",
+            re: /\b(Help)\b/gi,
+            x: 361,
+            y: 256
+        },
+        {
+            name: "Rockhurst",
+            re: /\bRockhurst\b/gi,
+            x: 81,
+            y: 235
+        },
+        {
+            name: "SPED",
+            re: /\bSPED\b/gi,
+            x: 692,
+            y: 319,
+            arrow: "SPED"
+        },
+        {
+            name: "teacher",
+            re: /\b(teacher)\b/gi,
+            x: 364,
+            y: 179
+        },
+        {
+            name: "Church",
+            re: /\b(church)\b/gi,
+            x: 862,
+            y: 217
+        },
+        {
+            name: "instructors",
+            re: /\b(instructors)\b/gi,
+            x: 620,
+            y: 339
+        },
+        {
+            name: "Fellow",
+            re: /\b(Fellow)\b/gi,
+            x: 410,
+            y: 340
+        },
+        {
+            name: "Education",
+            re: /\b(Education)\b/gi,
+            x: 267,
+            y: 218
+        },
+        {
+            name: "Meet",
+            re: /\b(Meet)\b/gi,
+            x: 393,
+            y: 224
+        },
+        {
+            name: "engage",
+            re: /\bengage\b/gi,
+            x: 73,
+            y: 206
+        },
+        {
+            name: "Witness",
+            re: /\bwitness\b/gi,
+            x: 721,
+            y: 230
+        },
+        {
+            name: "perspectives",
+            re: /\b(perspectives)\b/gi,
+            x: 109,
+            y: 212
+        },
+        {
+            name: "Faith",
+            re: /\b(faith)\b/gi,
+            x: 650,
+            y: 246
+        },
+        {
+            name: "activities",
+            re: /\b(famil[a-z]+)\b/gi,
+            x: 401,
+            y: 113
+        },
+        {
+            name: "Great",
+            re: /\b(Great)\b/gi,
+            x: 214,
+            y: 248
+        },
+        {
+            name: "hometown",
+            re: /\b(hometown)\b/gi,
+            x: 829,
+            y: 215
+        },
+        {
+            name: "recommend",
+            re: /\b(recommend)\b/gi,
+            x: 139,
+            y: 177
         }
-    ];
-    */
-    
-    var topics = [
-    {
-        name: "PD",
-        re: /\b(PD)\b/gi,
-        x: 558,
-        y: 181
-    },
+            ];
 
-    {
-        name: "Greg",
-        re: /\b(Greg)\b/gi,
-        x: 123,
-        y: 181
-    },
-    {
-        name: "Education",
-        re: /\b(Education)\b/gi,
-        x: 43,
-        y: 203
-    },
-    {
-        name: "Math",
-        re: /\bMath\b/gi,
-        x: 58,
-        y: 265,
-        arrow: "Math"
-    },
-    {
-        name: "Helpful",
-        re: /\b(Helpful)\b/gi,
-        x: 618,
-        y: 201
-    },
-    {
-        name: "Help",
-        re: /\b(Help)\b/gi,
-        x: 361,
-        y: 256
-    },
-    {
-        name: "Rockhurst",
-        re: /\bRockhurst\b/gi,
-        x: 81,
-        y: 235
-    },
-    {
-        name: "SPED",
-        re: /\bSPED\b/gi,
-        x: 692,
-        y: 319,
-        arrow: "SPED"
-    },
-    {
-        name: "teacher",
-        re: /\b(teacher)\b/gi,
-        x: 364,
-        y: 179
-    },
-    {
-        name: "Church",
-        re: /\b(church)\b/gi,
-        x: 862,
-        y: 217
-    },
-    {
-        name: "instructors",
-        re: /\b(instructors)\b/gi,
-        x: 620,
-        y: 339
-    },
-    {
-        name: "Fellow",
-        re: /\b(Fellow)\b/gi,
-        x: 410,
-        y: 340
-    },
-    {
-        name: "Education",
-        re: /\b(Education)\b/gi,
-        x: 267,
-        y: 218
-    },
-    {
-        name: "Meet",
-        re: /\b(Meet)\b/gi,
-        x: 393,
-        y: 224
-    },
-    {
-        name: "engage",
-        re: /\bengage\b/gi,
-        x: 73,
-        y: 206
-    },
-    {
-        name: "Witness",
-        re: /\bwitness\b/gi,
-        x: 721,
-        y: 230
-    },
-    {
-        name: "perspectives",
-        re: /\b(perspectives)\b/gi,
-        x: 109,
-        y: 212
-    },
-    {
-        name: "Faith",
-        re: /\b(faith)\b/gi,
-        x: 650,
-        y: 246
-    },
-    {
-        name: "activities",
-        re: /\b(famil[a-z]+)\b/gi,
-        x: 401,
-        y: 113
-    },
-    {
-        name: "Great",
-        re: /\b(Great)\b/gi,
-        x: 214,
-        y: 248
-    },
-    {
-        name: "hometown",
-        re: /\b(hometown)\b/gi,
-        x: 829,
-        y: 215
-    },
-    {
-        name: "recommend",
-        re: /\b(recommend)\b/gi,
-        x: 139,
-        y: 177
-    }
-        ];
-    
-    var googleSheet = json.feed.entry;
-    
-    var speeches = {};
-    
-    for(var i = 0; i < googleSheet.length; i++) {
-        var name    = googleSheet[i].gsx$name.$t;
-        var email   = googleSheet[i].gsx$email.$t;
-        var slide1  = googleSheet[i].gsx$slide1.$t;
-        var slide2  = googleSheet[i].gsx$slide2.$t;
-        var slide3  = googleSheet[i].gsx$slide3.$t;
-        var time    = googleSheet[i].gsx$peardeck.$t;
-        var speech  = name.toUpperCase() + ': ' + slide3;
-        
-        // add the speeches array to each party
-        if(!speeches.hasOwnProperty(slide1)) {
-            speeches[slide1] = {}
-            speeches[slide1].speeches = [];
-        }
-        
-        // record the speech!
-        speeches[slide1].speeches.push(speech);
-    }
-    
-    // put the parties in the parties array
-    for(var party in speeches) {
-        parties.push({
-            name : party,
-            speeches : speeches[party].speeches
-        });
-    }
-    
-    /*
-    // collect speeches by party
-    googleSheet.forEach(function(record) {
-        var name    = record.gsx$name.$t;
-        var email   = record.gsx$email.$t;
-        var slide1  = record.gsx$slide1.$t;
-        var slide2  = record.gsx$slide2.$t;
-        var slide3  = record.gsx$slide3.$t;
-        var time    = record.gsx$peardeck.$t;
-        var speech  = name + ': ' + slide3;
+        var googleSheet = json.feed.entry;
 
-        // record the speech!
-        speeches.push(speech);
-        
-        // add the speeches array to each party
-        if(!speeches.hasOwnProperty(slide1)) {
-            speeches[slide1] = {}
-            speeches[slide1].speeches = [];
+        // the speeches dictionary
+        // store the speeches here before populating the parties array
+        var speeches = {};
+
+        // for every row in the spreadsheet
+        for(var i = 0; i < googleSheet.length; i++) {
+            var name    = googleSheet[i].gsx$name.$t;
+            var email   = googleSheet[i].gsx$email.$t;
+            var slide1  = googleSheet[i].gsx$slide1.$t;
+            var slide2  = googleSheet[i].gsx$slide2.$t;
+            var slide3  = googleSheet[i].gsx$slide3.$t;
+            var time    = googleSheet[i].gsx$peardeck.$t;
+            var speech  = name.toUpperCase() + ': ' + slide3;
+
+            // add the party to the speeches dictionary, create its array
+            if(!speeches.hasOwnProperty(slide1)) {
+                speeches[slide1] = {}
+                speeches[slide1].speeches = [];
+            }
+
+            // record the speech!
+            speeches[slide1].speeches.push(speech);
         }
+
+        // get the speeches previously organized by party and store in the parties array
+        for(var party in speeches) {
+            parties.push({
+                name : party,
+                speeches : speeches[party].speeches
+            });
+        }
+
+        clobber(parties, speakers, topics);
+        visualize();
     });
-    */
+};
 
-    /*
-    var parties = [
-        {
-            name: "Student",
-            speeches: [
-                "JWCLARK RHS: Hey hello hi",
-                "GOWSLEY ADM: Code the web. Hello Helo.",
-                "WILL PA: This code project. Wow. Hello"
-            ]
-        },
-        {
-            name: "Faculty",
-            speeches: [
-                "KHECKMAN SMN: Hello hi",
-                "PCLARK RHS: Code code CODE HI hi BYE Bye",
-                "MBLANCK NOW: Raise mo money fo the code.",
-            ]
-        }
-    ];
-    parties[0].speeches = speeches;
-    */
-    
-//    console.log('in d3 json');
-//    console.log('speeches');
-//    console.log(JSON.parse(JSON.stringify(speeches)));
-//    console.log('parties');
-//    console.log(JSON.parse(JSON.stringify(parties)));
+window.onload = function() {
+    document.getElementById('btnOne').onclick = function() {
+        loadJSON(1);
+    }
+    document.getElementById('btnTwo').onclick = function() {
+        loadJSON(2);
+    }
+    document.getElementById('btnThree').onclick = function() {
+        loadJSON(3);
+    }
+}
 
-    clobber(parties, speakers, topics);
-    visualize();
-});
+loadJSON(1);
