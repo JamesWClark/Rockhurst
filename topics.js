@@ -25,17 +25,17 @@ var topics = [
         y: 265,
         arrow: "Real World"
     },
-    {
-        name: "Collaboration",
-        re: /\b(Collaboration)\b/gi,
-        x: 618,
-        y: 201
-    },
-    {
+        {
         name: "Personalize",
         re: /\b(Personalize)\b/gi,
         x: 361,
         y: 256
+    },
+    {
+        name: "Real World",
+        re: /\b(Real World)\b/gi,
+        x: 618,
+        y: 201
     },
     {
         name: "Inquiry",
