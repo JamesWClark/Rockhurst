@@ -3,8 +3,73 @@ var source2 = 'https://docs.google.com/spreadsheets/d/1aJ0E-qBDO3BABiQlqh4vXSIrq
 
 var data = {};
 
+// get data from google sheet by tab index 
+// calls clobber and visualize
+function loadJSON() {
+    
+    // an array of party objects. 
+    // inside, each party object will have an array of speeches
+    var parties = [];
+
+    var url1 = getSheetJsonUrl(source1); // sheet 1
+    var url2 = getSheetJsonUrl(source2); // sheet 2
+    
+    console.log('combining data from two sources:');
+    console.log(url1);
+    console.log(url2);
+    
+    // count how many sheets finish processing
+    // must equal 2 before visualize gets called
+    var finished = 0;
+    
+    // convert doc url to json api url
+    function getSheetJsonUrl(docUrl) {
+        var key = docUrl.split('/d/')[1].split('/')[0];
+        return 'https://spreadsheets.google.com/feeds/list/' + key + '/1/public/values?alt=json'
+    
+    }
+    
+    // get speeches from one sheet
+    function getParty(json) {
+        var sheetId     = json.feed.id.$t;
+        var sheetData   = json.feed.entry;
+
+        // the speeches dictionary
+        // store the speeches here before populating the parties array
+        var speeches = [];
+
+        // for every row in the spreadsheet
+        for(var i = 0; i < sheetData.length; i++) {
+            var name    = sheetData[i].gsx$name.$t;
+            var email   = sheetData[i].gsx$email.$t;
+            var slide1  = sheetData[i].gsx$slide1.$t;
+            var slide2  = sheetData[i].gsx$slide2.$t;
+            var slide3  = sheetData[i].gsx$slide3.$t;
+            var time    = sheetData[i].gsx$peardeck.$t;
+            var speech  = name.toUpperCase() + ': ' + slide3;
+
+            // record the speech!
+            speeches.push(speech);
+        }
+
+        parties.push({
+            name : sheetId,
+            speeches : speeches
+        });
+
+        finished++;
+        if(finished === 2) {
+            clobber(parties, speakers, topics);
+            visualize();
+        }
+    }
+    
+    d3.json(url1, getParty);
+    d3.json(url2, getParty);
+};
+
 // map and filter the data
-var clobber = function(parties, speakers, topics) {
+function clobber(parties, speakers, topics) {
 
     data.parties = parties.map(party);
     data.speakers = speakers;
@@ -113,7 +178,7 @@ var clobber = function(parties, speakers, topics) {
 };
 
 // display the graph
-var visualize = function() {
+function visualize() {
 
     var width = 970,
         height = 540;
@@ -708,66 +773,4 @@ var visualize = function() {
 
 };
 
-// get data from google sheet by tab index 
-// calls clobber and visualize
-var loadJSON = function() {
-    
-    // an array of party objects. inside, each party will have an array of speeches
-    var parties = [];
-
-    
-    var url1 = getSheetJsonUrl(source1); // sheet 1
-    var url2 = getSheetJsonUrl(source2); // sheet 2
-    
-    console.log(url1);
-    console.log(url2);
-    
-    // count how many sheets finish processing, must equal 2 before visualize gets called
-    var finished = 0;
-    
-    // convert doc url to json api url
-    function getSheetJsonUrl(docUrl) {
-        var key = docUrl.split('/d/')[1].split('/')[0];
-        return 'https://spreadsheets.google.com/feeds/list/' + key + '/1/public/values?alt=json'
-    
-    }
-    
-    // get speeches from one sheet
-    function getParty(json) {
-        var sheetId     = json.feed.id.$t;
-        var sheetData   = json.feed.entry;
-
-        // the speeches dictionary
-        // store the speeches here before populating the parties array
-        var speeches = [];
-
-        // for every row in the spreadsheet
-        for(var i = 0; i < sheetData.length; i++) {
-            var name    = sheetData[i].gsx$name.$t;
-            var email   = sheetData[i].gsx$email.$t;
-            var slide1  = sheetData[i].gsx$slide1.$t;
-            var slide2  = sheetData[i].gsx$slide2.$t;
-            var slide3  = sheetData[i].gsx$slide3.$t;
-            var time    = sheetData[i].gsx$peardeck.$t;
-            var speech  = name.toUpperCase() + ': ' + slide3;
-
-            // record the speech!
-            speeches.push(speech);
-        }
-
-        parties.push({
-            name : sheetId,
-            speeches : speeches
-        });
-
-        finished++;
-        if(finished === 2) {
-            clobber(parties, speakers, topics);
-            visualize();
-        }
-    }
-    
-    d3.json(url1, getParty);
-    d3.json(url2, getParty);
-};
-
+loadJSON();
