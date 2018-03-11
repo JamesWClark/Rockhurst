@@ -739,7 +739,7 @@ var loadJSON = function() {
 
         // the speeches dictionary
         // store the speeches here before populating the parties array
-        var speeches = {};
+        var speeches = [];
 
         // for every row in the spreadsheet
         for(var i = 0; i < sheetData.length; i++) {
@@ -751,19 +751,13 @@ var loadJSON = function() {
             var time    = sheetData[i].gsx$peardeck.$t;
             var speech  = name.toUpperCase() + ': ' + slide3;
 
-            // add the party to the speeches dictionary, create its array
-            if(!speeches.hasOwnProperty(sheetId)) {
-                speeches[sheetId] = {}
-                speeches[sheetId].speeches = [];
-            }
-
             // record the speech!
-            speeches[sheetId].speeches.push(speech);
+            speeches.push(speech);
         }
 
         parties.push({
             name : sheetId,
-            speeches : speeches[sheetId].speeches
+            speeches : speeches
         });
 
         finished++;
