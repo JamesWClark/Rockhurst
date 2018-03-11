@@ -1,7 +1,7 @@
 // pointless?
 var speakers = {
-    "AL GREEN": {
-        name: "Al Green",
+    "COLE SIROKMAN": {
+        name: "Cole Sirokman",
         title: "U.S. representative, Texas"
     },
     "ALEX SCHRIVER": {

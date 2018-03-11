@@ -10,6 +10,8 @@ function loadJSON() {
     // an array to store the two party objects 
     // inside, each party object will have an array of speeches
     var parties = [];
+    
+    var speakers = {}; // dictionary
 
     // data sources converted to json api urls
     var url1 = getSheetJsonUrl(source1); // sheet 1
@@ -48,6 +50,11 @@ function loadJSON() {
             var slide3  = sheetData[i].gsx$slide3.$t;
             var time    = sheetData[i].gsx$peardeck.$t;
             var speech  = name.toUpperCase() + ': ' + slide3;
+            
+            speakers[name.toUpperCase()] = {
+                name : name,
+                title : slide1
+            }
 
             // record the speech!
             speeches.push(speech);
