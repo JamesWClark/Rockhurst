@@ -3,14 +3,15 @@ var source2 = 'https://docs.google.com/spreadsheets/d/1aJ0E-qBDO3BABiQlqh4vXSIrq
 
 var data = {};
 
-// get data from google sheet by tab index 
-// calls clobber and visualize
+// get google sheet as json feed
+// calls clobber and visualize after data loads
 function loadJSON() {
     
-    // an array of party objects. 
+    // an array to store the two party objects 
     // inside, each party object will have an array of speeches
     var parties = [];
 
+    // data sources converted to json api urls
     var url1 = getSheetJsonUrl(source1); // sheet 1
     var url2 = getSheetJsonUrl(source2); // sheet 2
     
@@ -22,14 +23,14 @@ function loadJSON() {
     // must equal 2 before visualize gets called
     var finished = 0;
     
-    // convert doc url to json api url
+    // converts original doc url to json api url
     function getSheetJsonUrl(docUrl) {
         var key = docUrl.split('/d/')[1].split('/')[0];
         return 'https://spreadsheets.google.com/feeds/list/' + key + '/1/public/values?alt=json'
     
     }
     
-    // get speeches from one sheet
+    // get all speeches from one sheet
     function getParty(json) {
         var sheetId     = json.feed.id.$t;
         var sheetData   = json.feed.entry;
@@ -57,8 +58,7 @@ function loadJSON() {
             speeches : speeches
         });
 
-        finished++;
-        if(finished === 2) {
+        if(++finished === 2) {
             clobber(parties, speakers, topics);
             visualize();
         }
