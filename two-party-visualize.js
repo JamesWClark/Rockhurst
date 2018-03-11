@@ -157,7 +157,8 @@ function clobber(parties, speakers, topics) {
                 }
             });
 
-            topic.count += count = count / party.wordCount * 25e3;
+            //topic.count += count = count / party.wordCount * 25e3;
+            topic.count += count
             return {
                 count: count,
                 mentions: mentions
