@@ -6,7 +6,7 @@ http://www.nytimes.com/interactive/2012/09/06/us/politics/convention-word-counts
 
 Demo - Google Sheet Visualizer
 
-https://jameswclark.github.io/Rockhurst/
+https://jameswclark.github.io/Two-Party-Visualizer/
 
 Source Sheet:
 
