@@ -21,19 +21,6 @@ var topics = [
     {
         name: "Real World",
         re: /\b(Real World)\b/gi,
-        x: 58,
-        y: 265,
-        arrow: "Real World"
-    },
-        {
-        name: "Personalize",
-        re: /\b(Personalize)\b/gi,
-        x: 361,
-        y: 256
-    },
-    {
-        name: "Real World",
-        re: /\b(Real World)\b/gi,
         x: 618,
         y: 201
     },
@@ -79,17 +66,5 @@ var topics = [
         re: /\b(Interdisciplinary)\b/gi,
         x: 267,
         y: 218
-    },
-    {
-        name: "Industry Partners",
-        re: /\b(Industry Partners)\b/gi,
-        x: 393,
-        y: 224
-    },
-    {
-        name: "Mentors",
-        re: /\b(Mentors)\b/gi,
-        x: 73,
-        y: 206
-    },
+    }
 ];
