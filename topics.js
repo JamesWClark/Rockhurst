@@ -9,8 +9,14 @@ var topics = [
     {
         name: "Creative",
         re: /\b(Creative)\b/gi,
+        x: 500,
+        y: 200
+    },
+    {
+        name: "STEM",
+        re: /\b(Creative)\b/gi,
         x: 123,
-        y: 181
+        y: 190
     },
     {
         name: "Science",
@@ -21,14 +27,14 @@ var topics = [
     {
         name: "Technology",
         re: /\b(Problem Solvers)\b/gi,
-        x: 43,
-        y: 203
+        x: 63,
+        y: 103
     },
     {
         name: "Engineering",
         re: /\b(Problem Solvers)\b/gi,
-        x: 43,
-        y: 203
+        x: 63,
+        y: 250
     },
     {
         name: "Arts",
@@ -39,19 +45,19 @@ var topics = [
     {
         name: "Math",
         re: /\b(Problem Solvers)\b/gi,
-        x: 43,
-        y: 203
+        x: 60,
+        y: 103
     },
     {
         name: "Real World",
         re: /\b(Real World)\b/gi,
-        x: 618,
+        x: 400,
         y: 201
     },
     {
         name: "Inquiry",
         re: /\b(Inquiry)\b/gi,
-        x: 81,
+        x: 181,
         y: 235
     },
     {
