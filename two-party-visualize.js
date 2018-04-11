@@ -191,7 +191,7 @@ function TwoPartyVisual() {
                     }
                 });
 
-                topic.count += count = count / party.wordCount *1e3;
+                topic.count += count = count / party.wordCount *1000;
                 topic.count += count
                 return {
                     count: count,
