@@ -13,7 +13,31 @@ var topics = [
         y: 181
     },
     {
-        name: "Problem Solvers",
+        name: "Science",
+        re: /\b(Problem Solvers)\b/gi,
+        x: 43,
+        y: 203
+    },
+    {
+        name: "Technology",
+        re: /\b(Problem Solvers)\b/gi,
+        x: 43,
+        y: 203
+    },
+    {
+        name: "Engineering",
+        re: /\b(Problem Solvers)\b/gi,
+        x: 43,
+        y: 203
+    },
+    {
+        name: "Arts",
+        re: /\b(Problem Solvers)\b/gi,
+        x: 43,
+        y: 203
+    },
+    {
+        name: "Math",
         re: /\b(Problem Solvers)\b/gi,
         x: 43,
         y: 203
