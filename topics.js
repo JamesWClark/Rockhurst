@@ -21,8 +21,8 @@ var topics = [
     {
         name: "Science",
         re: /\b(Science)\b/gi,
-        x: 143,
-        y: 183
+        x: 200,
+        y: 143
     },
     {
         name: "Technology",
