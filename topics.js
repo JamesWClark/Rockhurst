@@ -14,37 +14,37 @@ var topics = [
     },
     {
         name: "STEM",
-        re: /\b(Creative)\b/gi,
+        re: /\b(STEM)\b/gi,
         x: 123,
         y: 190
     },
     {
         name: "Science",
-        re: /\b(Problem Solvers)\b/gi,
+        re: /\b(Science)\b/gi,
         x: 43,
         y: 203
     },
     {
         name: "Technology",
-        re: /\b(Problem Solvers)\b/gi,
+        re: /\b(Technology)\b/gi,
         x: 63,
         y: 103
     },
     {
         name: "Engineering",
-        re: /\b(Problem Solvers)\b/gi,
+        re: /\b(Engineering)\b/gi,
         x: 63,
         y: 250
     },
     {
         name: "Arts",
-        re: /\b(Problem Solvers)\b/gi,
+        re: /\b(Arts)\b/gi,
         x: 43,
         y: 203
     },
     {
         name: "Math",
-        re: /\b(Problem Solvers)\b/gi,
+        re: /\b(Math)\b/gi,
         x: 60,
         y: 103
     },
