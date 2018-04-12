@@ -70,8 +70,8 @@ var topics = [
     {
         name: "Learning",
         re: /\b(Learning)\b/gi,
-        x: 264,
-        y: 179
+        x: 364,
+        y: 279
     },
     {
         name: "Students",
