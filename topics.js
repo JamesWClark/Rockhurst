@@ -21,8 +21,8 @@ var topics = [
     {
         name: "Science",
         re: /\b(Science)\b/gi,
-        x: 43,
-        y: 203
+        x: 143,
+        y: 183
     },
     {
         name: "Technology",
@@ -51,7 +51,7 @@ var topics = [
     {
         name: "Real World",
         re: /\b(Real World)\b/gi,
-        x: 400,
+        x: 300,
         y: 201
     },
     {
@@ -63,32 +63,32 @@ var topics = [
     {
         name: "Authentic",
         re: /\b(Authentic)\b/gi,
-        x: 692,
+        x: 292,
         y: 319,
         arrow: "SPED"
     },
     {
         name: "Learning",
         re: /\b(Learning)\b/gi,
-        x: 364,
+        x: 264,
         y: 179
     },
     {
         name: "Students",
         re: /\b(Students)\b/gi,
-        x: 862,
+        x: 262,
         y: 217
     },
     {
         name: "Research",
         re: /\b(Research)\b/gi,
-        x: 620,
+        x: 220,
         y: 339
     },
     {
         name: "Critical Thinking",
         re: /\b(Critical Thinking)\b/gi,
-        x: 410,
+        x: 310,
         y: 340
     },
     {
