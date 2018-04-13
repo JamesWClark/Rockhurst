@@ -7,6 +7,12 @@ var topics = [
         y: 181
     },
     {
+        name: "Collaboration",
+        re: /\b(Collaboration)\b/gi,
+        x: 598,
+        y: 281
+    },
+    {
         name: "Creative",
         re: /\b(Creative)\b/gi,
         x: 500,
